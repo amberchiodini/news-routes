@@ -1,53 +1,20 @@
 import {Route, NavLink, useRouteMatch} from "react-router-dom";
+import sportsData from '../data/sportsData'
+import Sport from '../components/Sport'
 
 export default function Sports () {
     let { url } = useRouteMatch()
-    console.log('match', url)
+    const links = sportsData.map(sport => (
+        <li key={sport.id}><NavLink to={`${url}/${sport.id}`}>{sport.title}</NavLink></li>
+    ))
     return (
     <div>
         <h2>Sports!</h2>
-        <li><NavLink to={`${url}/football`}>Football</NavLink></li>
-        <li><NavLink to={`${url}/soccer`}>Soccer</NavLink></li>
-        <li><NavLink to={`${url}/baseball`}>Baseball</NavLink></li>
+        <ul>{links}</ul>
 
-        <Route path={`${url}/football`} >
-            <Football />
+        <Route path={`${url}/:id`} >
+            <Sport sportsData={sportsData} />
         </Route>
-
-        <Route path={`${url}/soccer`} >
-            <Soccer />
-        </Route>
-
-        <Route path={`${url}/baseball`} >
-            <Baseball />
-        </Route>
-
     </div>
     )
 }
-
-function Football(){
-    return (
-      <div>
-        <h2>Football</h2>
-      </div>
-    )
-  }
-  
-  function Soccer(){
-    return (
-      <div>
-        <h2>Soccer</h2>
-      </div>
-    )
-  }
-  
-  function Baseball(){
-    return (
-      <div>
-        <h2>Baseball</h2>
-      </div>
-    )
-  }
-  
-  //
